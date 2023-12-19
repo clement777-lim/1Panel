@@ -5,7 +5,7 @@
                 <DrawerHeader header="DNS" :back="handleClose" />
             </template>
 
-            <el-row type="flex" justify="center">
+            <el-row type="flex" justify="center" v-loading="loading">
                 <el-col :span="22">
                     <el-alert
                         :title="$t('toolbox.device.dnsAlert')"
@@ -24,7 +24,6 @@
                         label-position="top"
                         @submit.prevent
                         :model="form"
-                        v-loading="loading"
                     >
                         <el-form-item label="DNS" prop="dns">
                             <el-input
@@ -41,7 +40,7 @@
                             placeholder="# The DNS configuration file does not exist or is empty (/etc/resolv.conf)"
                             :indent-with-tab="true"
                             :tabSize="4"
-                            style="margin-top: 10px; height: calc(100vh - 200px)"
+                            style="margin-top: 10px; height: calc(100vh - 260px)"
                             :lineWrapping="true"
                             :matchBrackets="true"
                             theme="cobalt"

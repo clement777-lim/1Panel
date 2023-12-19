@@ -1,5 +1,5 @@
 <template>
-    <div v-loading="loading">
+    <div>
         <el-drawer v-model="drawerVisible" :destroy-on-close="true" :close-on-click-modal="false" size="50%">
             <template #header>
                 <DrawerHeader header="Swap" :back="handleClose" />
@@ -147,7 +147,7 @@ const loadData = (path: string) => {
         item.size = itemSize.size;
         item.sizeUnit = itemSize.unit;
     }
-    if (!isExist && path !== '') {
+    if (!isExist) {
         form.swapDetails.push({
             path: path + '/.1panel_swap',
             size: 0,

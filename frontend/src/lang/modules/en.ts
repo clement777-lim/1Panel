@@ -588,18 +588,13 @@ const message = {
         privilegedHelper:
             'Allows the container to perform certain privileged operations on the host, which may increase container risks. Use with caution!',
 
-        upgradeHelper: 'This operation only supports upgrading container versions.',
-        ignoreCompare: 'Force Upgrade',
-        ignoreCompareHelper:
-            'Skip the comparison between old and new versions, upgrade directly. This operation may result in service unavailability.',
-        upgradeWarning: 'The target version is lower than the original image version. Please try again!',
+        upgradeHelper: 'Repository Name/Image Name: Image Version',
         upgradeWarning2:
-            'The upgrade operation requires rebuilding the container, and any non-persistent data will be lost. Do you want to continue?',
-        oldImage: 'Current image',
-        targetImage: 'Target image',
-        imageLoadErr: 'System did not detect the container image name, please manually enter the full image name:tag ',
-        appHelper:
-            'This container is sourced from the application store. Upgrading it may cause the service to be unavailable.',
+            'The upgrade operation requires rebuilding the container, any unpersisted data will be lost. Do you wish to continue?',
+        oldImage: 'Current Image',
+        targetImage: 'Target Image',
+        imageLoadErr: 'No image name detected for the container',
+        appHelper: 'This container is sourced from the app store; upgrading might render the service unavailable',
 
         input: 'Input',
         forcePull: 'forced image pull ',
@@ -640,6 +635,7 @@ const message = {
         imagePush: 'Image push',
         imageDelete: 'Image delete',
         imageDeleteTag: 'Image tag delete',
+        imageTagDeleteHelper: 'Remove other tags associated with this image ID',
         repoName: 'Repo Name',
         imageName: 'Image name',
         pull: 'Pull',
@@ -924,7 +920,7 @@ const message = {
                 'When there are multiple DNS entries, they should be displayed on new lines. e.g.\n114.114.114.114\n8.8.8.8',
             hostsHelper: 'Hostname Resolution',
             hosts: 'Domain',
-            toolbox: 'Toolbox',
+            toolbox: 'Quick Setup',
             hostname: 'Hostname',
             passwd: 'System Password',
             passwdHelper: 'Input characters cannot include $ and &',
@@ -1105,6 +1101,9 @@ const message = {
         wordWrap: 'Automatically wrap',
         deleteHelper2:
             'Are you sure you want to delete the selected file? The deletion operation cannot be rolled back',
+        ignoreCertificate: 'Ignore Certificate',
+        ignoreCertificateHelper:
+            'Ignoring untrusted certificates during downloads may lead to data leakage or tampering. Please use this option with caution, only when trusting the download source.',
     },
     ssh: {
         autoStart: 'Auto Start',
@@ -1121,8 +1120,10 @@ const message = {
             'Modifying the configuration file may cause service availability. Exercise caution when performing this operation. Do you want to continue?',
         portHelper: 'Specifies the port number monitored by the SSH service. The default port number is 22.',
         listenAddress: 'Listening address',
-        addressHelper:
-            'Specify the IP address monitored by the SSH service. The default value is 0.0.0.0. That is, all network interfaces are monitored.',
+        allV4V6: '0.0.0.0:{0}(IPv4) and :::{0}(IPv6)',
+        listenHelper:
+            'Canceling IPv4 and IPv6 settings simultaneously will listen on both 0.0.0.0:{0}(IPv4) and :::{0}(IPv6)',
+        addressHelper: 'Specify the IP address on which the SSH service will listen',
         permitRootLogin: 'root user',
         rootSettingHelper: 'The default login mode is SSH for user root.',
         rootHelper1: 'Allow SSH login',
@@ -1174,6 +1175,8 @@ const message = {
         emailHelper: 'For password retrieval',
         title: 'Panel Alias',
         panelPort: 'Panel Port',
+        titleHelper:
+            'Supports non-special character starting, English, Chinese, numbers, spaces, .- and _, length 3-30',
         portHelper:
             'The recommended port range is 8888 to 65535. Note: If the server has a security group, permit the new port from the security group in advance',
         portChange: 'Port change',
@@ -1364,7 +1367,6 @@ const message = {
         rollbackHelper:
             'This recovery is about to be rolled back, which will replace all the files recovered this time. In the process, docker and 1panel services may need to be restarted. Do you want to continue?',
 
-        upgrading: 'Please wait while the upgrade is underway...',
         upgradeHelper: 'The upgrade requires a service restart. Do you want to continue?',
         noUpgrade: 'It is currently the latest version',
         versionHelper:
@@ -1884,6 +1886,7 @@ const message = {
         googleHelper:
             "<a target=“_blank” href='https://cloud.google.com/certificate-manager/docs/public-ca-tutorial?hl=zh-cn'>如何取得EAB HmacKey 和EAB kid</a > ",
         googleCloudHelper: 'Google Cloud API is not accessible in most parts of mainland China',
+        httpHelper2: 'Unable to apply for a generic domain name certificate in HTTP mode',
     },
     firewall: {
         create: 'Create rule',
@@ -1908,6 +1911,7 @@ const message = {
         unUsed: 'Unused',
         firewallHelper: '{0} System firewall',
         firewallNotStart: 'The system firewall is not enabled at present, please enable it first!',
+        restartFirewallHelper: 'This operation will restart the current firewall. Do you want to continue?',
         stopFirewallHelper:
             'After the system firewall is disabled, the server loses security protection. Do you want to continue?',
         startFirewallHelper:

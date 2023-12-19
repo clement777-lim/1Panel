@@ -6582,45 +6582,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/host/ssh/log/analysis": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "分析 SSH 登录日志",
-                "consumes": [
-                    "application/json"
-                ],
-                "tags": [
-                    "SSH"
-                ],
-                "summary": "Analysis host SSH logs",
-                "parameters": [
-                    {
-                        "description": "request",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.SearchForAnalysis"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/dto.SSHLogAnalysis"
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/host/ssh/operate": {
             "post": {
                 "security": [
@@ -10102,7 +10063,7 @@ const docTemplate = `{
             }
         },
         "/toolbox/device/base": {
-            "get": {
+            "post": {
                 "security": [
                     {
                         "ApiKeyAuth": []
@@ -11135,6 +11096,57 @@ const docTemplate = `{
             }
         },
         "/websites/ca/obtain": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "自签 SSL 证书",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Website CA"
+                ],
+                "summary": "Obtain SSL",
+                "parameters": [
+                    {
+                        "description": "request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.WebsiteCAObtain"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                },
+                "x-panel-log": {
+                    "BeforeFunctions": [
+                        {
+                            "db": "website_cas",
+                            "input_column": "id",
+                            "input_value": "id",
+                            "isList": false,
+                            "output_column": "name",
+                            "output_value": "name"
+                        }
+                    ],
+                    "bodyKeys": [
+                        "id"
+                    ],
+                    "formatEN": "Obtain SSL [name]",
+                    "formatZH": "自签 SSL 证书 [name]",
+                    "paramKeys": []
+                }
+            }
+        },
+        "/websites/ca/renew": {
             "post": {
                 "security": [
                     {
@@ -15064,6 +15076,7 @@ const docTemplate = `{
                     "enum": [
                         "start",
                         "stop",
+                        "restart",
                         "disablePing",
                         "enablePing"
                     ]
@@ -15460,9 +15473,6 @@ const docTemplate = `{
                 "targetName"
             ],
             "properties": {
-                "repoID": {
-                    "type": "integer"
-                },
                 "sourceID": {
                     "type": "string"
                 },
@@ -16571,26 +16581,6 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.SSHLogAnalysis": {
-            "type": "object",
-            "properties": {
-                "address": {
-                    "type": "string"
-                },
-                "area": {
-                    "type": "string"
-                },
-                "failedCount": {
-                    "type": "integer"
-                },
-                "status": {
-                    "type": "string"
-                },
-                "successfulCount": {
-                    "type": "integer"
-                }
-            }
-        },
         "dto.SSHUpdate": {
             "type": "object",
             "required": [
@@ -16642,29 +16632,6 @@ const docTemplate = `{
                         "import-paste",
                         "import-local"
                     ]
-                }
-            }
-        },
-        "dto.SearchForAnalysis": {
-            "type": "object",
-            "required": [
-                "orderBy",
-                "page",
-                "pageSize"
-            ],
-            "properties": {
-                "orderBy": {
-                    "type": "string",
-                    "enum": [
-                        "Success",
-                        "Failed"
-                    ]
-                },
-                "page": {
-                    "type": "integer"
-                },
-                "pageSize": {
-                    "type": "integer"
                 }
             }
         },
@@ -18301,6 +18268,9 @@ const docTemplate = `{
                 "url"
             ],
             "properties": {
+                "ignoreCertificate": {
+                    "type": "boolean"
+                },
                 "name": {
                     "type": "string"
                 },
